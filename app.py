@@ -17,7 +17,10 @@ st.write(df)
 
 # histogram of the types of vehicles by manufacturer
 st.subheader('Histogram of the types of vehicles by manufacturer')
-fig = px.histogram(df, x='manufacturer', color='type')
+fig = px.histogram(df, x='Manufacturer', color='Type', y='Type', 
+                   labels={'Type': 'Number of Vehicles'},
+                   title='Number of Vehicles by Manufacturer and Type')
+
 # plot the histogram
 st.plotly_chart(fig)
 
@@ -26,8 +29,8 @@ st.subheader('Histogram of price distribution between manufacturers')
 
 # drop down menu for selecting the manufacturer 1 and 2 
 # index 1 and 2 are used to set default values for the drop down menu
-manufacturer1 = st.selectbox('Manufacturer 1', df['manufacturer'].unique(), index=1)
-manufacturer2 = st.selectbox('Manufacturer 2', df['manufacturer'].unique(), index=2)
+manufacturer1 = st.selectbox('Manufacturer 1', df['Manufacturer'].unique(), index=1)
+manufacturer2 = st.selectbox('Manufacturer 2', df['Manufacturer'].unique(), index=2)
 
 # create a normalized histogram checkbox
 normalized = st.checkbox('Normalized')
@@ -36,8 +39,8 @@ normalized = st.checkbox('Normalized')
 fig = go.Figure()
 
 # Add histogram traces for each manufacturer
-fig.add_trace(go.Histogram(x=df[df['manufacturer'] == manufacturer1]['price'], name=manufacturer1, opacity=0.75, histnorm='percent'))
-fig.add_trace(go.Histogram(x=df[df['manufacturer'] == manufacturer2]['price'], name=manufacturer2, opacity=0.75, histnorm='percent'))
+fig.add_trace(go.Histogram(x=df[df['Manufacturer'] == manufacturer1]['Price'], name=manufacturer1, opacity=0.75, histnorm='percent'))
+fig.add_trace(go.Histogram(x=df[df['Manufacturer'] == manufacturer2]['Price'], name=manufacturer2, opacity=0.75, histnorm='percent'))
 
 # normalize the histogram if the checkbox is checked
 if normalized:
