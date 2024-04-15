@@ -5,6 +5,10 @@
 This project focuses on applying fundamental software engineering tasks to enhance your data skills and enhance your appeal to prospective employers. Core tasks include establishing and overseeing Python virtual environments, constructing a web application, and deploying it to a publicly accessible cloud platform.
 
 Although the project employed a dataset of car sales advertisements, the primary emphasis wasn't on the dataset or its analysis. You have the flexibility to select any dataset that piques your interest.
+
+1. What are the common attributes associated with the vehicles in the dataset, and how do they contribute to understanding the vehicle data?
+2. How does the presence of missing values in certain columns impact the quality of the dataset, and what steps can be taken to address this issue?
+3. What insights can be gained from analyzing the distribution of vehicle sales by manufacturer, condition, and type, and how does this information inform decision-making in the automotive industry?
 ## Steps Involved
 
 ### Step 1: Project Prerequisites
