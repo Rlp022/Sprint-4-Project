@@ -8,12 +8,19 @@ import plotly.graph_objects as go
 # Read data from csv file vehicled_us_clean.csv
 df = pd.read_csv('./vehicles_us_cleaned.csv')
 
+# Title of the app centered
+st.title('US Vehicle Advertisement Listings')
+
 # Show data in the app
 st.write(df)
 
 # histogram of the types of vehicles by manufacturer
 st.subheader('Histogram of the types of vehicles by manufacturer')
-fig = px.histogram(df, x='Manufacturer', color='Type')
+vehicle_sales = df.groupby(['Manufacturer', 'Type']).size().reset_index(name='Vehicles Sold')
+
+# Plot histogram with Manufacturer on the x-axis, Vehicles Sold on the y-axis, and Type as color
+fig = px.histogram(vehicle_sales, x='Manufacturer', y='Vehicles Sold', color='Type',
+                   title='Number of Vehicles Sold by Manufacturer and Type')
 # plot the histogram
 st.plotly_chart(fig)
 
