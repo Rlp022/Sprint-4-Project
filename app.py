@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 
 
 # Read data from csv file vehicled_us_clean.csv
-df = pd.read_csv(r'C:\Users\patte\OneDrive\Desktop\Sprint-4-Project\vehicles_us_cleaned.csv')
+df = pd.read_csv('./vehicles_us_cleaned.csv')
 
 # Show data in the app
 st.write(df)
