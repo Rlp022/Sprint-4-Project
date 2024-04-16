@@ -27,7 +27,7 @@ fig.update_yaxes(range=[100,13000])
 st.plotly_chart(fig)
 
 
-# histogram of price distribution between manufacturers
+# histogram of price distribution of condition between manufacturers
 st.subheader('Histogram of price distribution between manufacturers')
 # drop down menu for selecting the manufacturer 1 and 2 
 # index 1 and 2 are used to set default values for the drop down menu
@@ -38,7 +38,7 @@ manufacturer2 = st.selectbox('Manufacturer 2', df['Manufacturer'].unique(), inde
 normalized = st.checkbox('Normalized')
 
 # create a histogram with manufacturer1 and manufacturer2 input
-fig = px.histogram(df, x='Price', color='Manufacturer', 
+fig = px.histogram(df, x='Price', y='Condition', color='Manufacturer', 
                    marginal='rug',  # adds marginal rug plots
                    hover_data=df.columns)
 
@@ -47,11 +47,6 @@ if normalized:
     fig.update_layout(barmode='overlay')
     fig.update_traces(opacity=0.75)
 
-# x-axis title
-fig.update_xaxes(title_text='Price')
-
-# y-axis title
-fig.update_yaxes(title_text='Count')
 
 # Set the y-axis limit
 fig.update_yaxes(range=[100, 13000])
@@ -76,5 +71,6 @@ color = st.selectbox('Color', df.columns, index=3)
 st.subheader(f'Scatter plot matrix of {x_axis} and {y_axis} by {color}')
 # create the scatter plot matrix
 fig = px.scatter_matrix(df, dimensions=[x_axis, y_axis], color=color)
+fig.update_xaxes(range=[1950, 2024])
 # plot the scatter plot matrix
 st.plotly_chart(fig)
