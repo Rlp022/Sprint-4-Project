@@ -49,7 +49,7 @@ if normalized:
 
 
 # Set the y-axis limit
-fig.update_yaxes(range=[100, 4000000])
+fig.update_yaxes(range=[100000, 80000000])
 
 
 # plot the histogram
