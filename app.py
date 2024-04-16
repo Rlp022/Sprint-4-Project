@@ -21,6 +21,8 @@ vehicle_sales = df.groupby(['Manufacturer', 'Type']).size().reset_index(name='Ve
 # Plot histogram with Manufacturer on the x-axis, Vehicles Sold on the y-axis, and Type as color
 fig = px.histogram(vehicle_sales, x='Manufacturer', y='Vehicles Sold', color='Type',
                    title='Number of Vehicles Sold by Manufacturer and Type')
+# Set the y-axis limit to
+fig.update_yaxes(range=[100,13000])
 # plot the histogram
 st.plotly_chart(fig)
 
@@ -31,22 +33,32 @@ st.subheader('Histogram of price distribution between manufacturers')
 # index 1 and 2 are used to set default values for the drop down menu
 manufacturer1 = st.selectbox('Manufacturer 1', df['Manufacturer'].unique(), index=1)
 manufacturer2 = st.selectbox('Manufacturer 2', df['Manufacturer'].unique(), index=2)
+
 # create a normalized histogram checkbox
 normalized = st.checkbox('Normalized')
+
 # create a histogram with manufacturer1 and manufacturer2 input
 fig = px.histogram(df, x='Price', color='Manufacturer', 
                    marginal='rug',  # adds marginal rug plots
                    hover_data=df.columns)
-fig.add_trace(go.Histogram(x=df[df['Manufacturer'] == manufacturer1]['Price'], name=manufacturer1, opacity=0.75, histnorm='percent'))
-fig.add_trace(go.Histogram(x=df[df['Manufacturer'] == manufacturer2]['Price'], name=manufacturer2, opacity=0.75, histnorm='percent'))
-# normalize the histogram if the checkbox is checked
+
+# Check if normalization checkbox is checked
 if normalized:
     fig.update_layout(barmode='overlay')
     fig.update_traces(opacity=0.75)
+
 # x-axis title
 fig.update_xaxes(title_text='Price')
+
 # y-axis title
-fig.update_yaxes(title_text='Percentage')
+fig.update_yaxes(title_text='Count')
+
+# Set the y-axis limit
+fig.update_yaxes(range=[100, 13000])
+
+# Set the x-axis limit
+fig.update_xaxes(range=[100, 13000])
+
 # plot the histogram
 st.plotly_chart(fig)
 
