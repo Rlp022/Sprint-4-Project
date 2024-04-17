@@ -72,3 +72,10 @@ fig = px.scatter_matrix(df, dimensions=[x_axis, y_axis], color=color)
 fig.update_xaxes(range=[1920, 2024])
 # plot the scatter plot matrix
 st.plotly_chart(fig)
+
+
+st.subheader('Scatter Plot')
+x_axis = st.selectbox('Choose X-axis:', df.columns)
+y_axis = st.selectbox('Choose Y-axis:', df.columns)
+scatter_plot = px.scatter(df, x=x_axis, y=y_axis)
+st.plotly_chart(scatter_plot)
