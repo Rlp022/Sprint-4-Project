@@ -74,8 +74,16 @@ fig.update_xaxes(range=[1920, 2024])
 st.plotly_chart(fig)
 
 
-st.subheader('Scatter Plot')
-x_axis = st.selectbox('Choose X-axis:', df.columns)
-y_axis = st.selectbox('Choose Y-axis:', df.columns)
-scatter_plot = px.scatter(df, x=x_axis, y=y_axis)
+st.subheader('Scatter Plot Price vs Model Year')
+x_axis = st.selectbox('Choose X-axis:', df.columns, index=1)
+y_axis = st.selectbox('Choose Y-axis:', df.columns, index=2)
+
+# Create scatter plot with labels
+scatter_plot = px.scatter(df, x=x_axis, y=y_axis, labels={'x': 'Model Year', 'y': 'Price'})
+
+# Display the scatter plot
+st.plotly_chart(scatter_plot)
+# Set the y-axis limit
+fig.update_yaxes(range=[10000, 400000])
+
 st.plotly_chart(scatter_plot)
