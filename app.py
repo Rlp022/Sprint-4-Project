@@ -55,7 +55,7 @@ fig.update_xaxes(title_text='Manufacturer')
 # y-axis title
 fig.update_yaxes(title_text='Price')
 # plot the histogram
-st.plotly_chart(fig
+st.plotly_chart(fig)
 
 
 
