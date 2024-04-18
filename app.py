@@ -74,12 +74,10 @@ fig.update_xaxes(range=[1920, 2024])
 st.plotly_chart(fig)
 
 
+#Scatter Plot
 st.subheader('Scatter Plot')
-x_axis = st.selectbox('Choose X-axis:', df.columns)
-y_axis = st.selectbox('Choose Y-axis:', df.columns)
-scatter_plot = px.scatter(df, x=Model year, y=Price)
-st.plotly_chart(scatter_plot)
-# Set the y-axis limit
+fig4 = px.scatter(df, x='Model year', y='Price')
+st.subheader("Scatter Plot: Price vs. Model Year")
+st.plotly_chart(fig4)
 fig.update_yaxes(range=[10000, 400000])
-
-st.plotly_chart(scatter_plot)
+fig.update_xaxes(range=[1960, 2020])
