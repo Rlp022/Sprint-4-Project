@@ -52,32 +52,11 @@ if normalized:
 fig.update_yaxes(range=[100000, 80000000])
 
 
-# plot the histogram
-st.plotly_chart(fig)
-
-
-
-# scatter plot matrix 
-st.subheader('Scatter plot matrix')
-# drop down for each dimension 
-# index 1, 2, and 3 are used to set default values for the drop down menu
-x_axis = st.selectbox('X axis', df.columns, index=1)
-y_axis = st.selectbox('Y axis', df.columns, index=2)
-# drop down for the color
-color = st.selectbox('Color', df.columns, index=3)
-# subheader for the scatter plot matrix that automatically updates
-st.subheader(f'Scatter plot matrix of {x_axis} and {y_axis} by {color}')
-# create the scatter plot matrix
-fig = px.scatter_matrix(df, dimensions=[x_axis, y_axis], color=color)
-fig.update_xaxes(range=[1920, 2024])
-# plot the scatter plot matrix
-st.plotly_chart(fig)
-
 
 #Scatter Plot
 st.subheader('Scatter Plot')
 fig4 = px.scatter(df, x='Model year', y='Price')
 st.subheader("Scatter Plot: Price vs. Model Year")
 st.plotly_chart(fig4)
-fig.update_yaxes(range=[10000, 400000])
-fig.update_xaxes(range=[1960, 2020])
+fig4.update_yaxes(range=[10000, 400000])
+fig4.update_xaxes(range=[1960, 2020])
