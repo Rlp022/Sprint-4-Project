@@ -35,7 +35,7 @@ manufacturer1 = st.selectbox('Manufacturer 1', df['Manufacturer'].unique(), inde
 manufacturer2 = st.selectbox('Manufacturer 2', df['Manufacturer'].unique(), index=2)
 
 # create a normalized histogram checkbox
-normalized = st.checkbox('Normalized')
+normalized = st.checkbox('Normalized', key='normalized_checkbox')
 
 # create a histogram with manufacturer1 and manufacturer2 input
 fig = px.histogram(df, x='Condition', y='Price', color='Manufacturer', 
