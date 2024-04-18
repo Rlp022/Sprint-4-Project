@@ -27,7 +27,7 @@ fig.update_yaxes(range=[100,13000])
 st.plotly_chart(fig)
 
 
-# histogram of price distribution of condition between manufacturers
+# histogram of price distribution of Manufacturer between manufacturers
 st.subheader('Histogram of price distribution between manufacturers')
 # drop down menu for selecting the manufacturer 1 and 2 
 # index 1 and 2 are used to set default values for the drop down menu
@@ -38,30 +38,24 @@ manufacturer2 = st.selectbox('Manufacturer 2', df['Manufacturer'].unique(), inde
 normalized = st.checkbox('Normalized', key='normalized_checkbox')
 
 # create a histogram with manufacturer1 and manufacturer2 input
-fig = px.histogram(df, x='Condition', y='Price', color='Manufacturer', 
+fig = px.histogram(df, x='Manufacturer', y='Price', color='Manufacturer', 
                    marginal='rug',  # adds marginal rug plots
                    hover_data=df.columns)
 
-## create a normalized histogram checkbox
-normalized = st.checkbox('Normalized')
-# create a histogram with manufacturer1 and manufacturer2 input
-fig = px.histogram()
-fig.add_trace(go.Histogram(x=df[df['manufacturer'] == manufacturer1]['price'], name=manufacturer1, opacity=0.75, histnorm='percent'))
-fig.add_trace(go.Histogram(x=df[df['manufacturer'] == manufacturer2]['price'], name=manufacturer2, opacity=0.75, histnorm='percent'))
-# normalize the histogram if the checkbox is checked
+# Set the y-axis limit
+fig.update_yaxes(range=[100000, 80000000])
+
+# Check if normalization checkbox is checked
 if normalized:
     fig.update_layout(barmode='overlay')
     fig.update_traces(opacity=0.75)
+
 # x-axis title
-fig.update_xaxes(title_text='Price')
+fig.update_xaxes(title_text='Manufacturer')
 # y-axis title
-fig.update_yaxes(title_text='Percentage')
+fig.update_yaxes(title_text='Price')
 # plot the histogram
-st.plotly_chart(fig)
-
-
-# Set the y-axis limit
-fig.update_yaxes(range=[100000, 80000000])
+st.plotly_chart(fig
 
 
 
