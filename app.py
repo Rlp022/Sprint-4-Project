@@ -42,8 +42,7 @@ fig = px.histogram(df, x='Manufacturer', y='Price', color='Manufacturer',
                    marginal='rug',  # adds marginal rug plots
                    hover_data=df.columns)
 
-# Set the y-axis limit
-fig.update_yaxes(range=[100000, 80000000])
+
 
 # Check if normalization checkbox is checked
 if normalized:
@@ -54,6 +53,9 @@ if normalized:
 fig.update_xaxes(title_text='Manufacturer')
 # y-axis title
 fig.update_yaxes(title_text='Price')
+# Set the y-axis limit
+fig.update_yaxes(range=[100000, 160000000])
+
 # plot the histogram
 st.plotly_chart(fig)
 
