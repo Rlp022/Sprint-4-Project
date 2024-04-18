@@ -55,10 +55,10 @@ fig.update_yaxes(range=[100000, 80000000])
 
 #Scatter Plot
 st.subheader('Scatter Plot')
-fig4 = px.scatter(df, x='Model year', y='Price')
+fig1 = px.scatter(df, x='Model year', y='Price')
 st.subheader("Scatter Plot: Price vs. Model Year")
 
-fig4.update_yaxes(range=[10000, 400000])
-fig4.update_xaxes(range=[1960, 2020])
+fig1.update_yaxes(range=[10000, 400000])
+fig1.update_xaxes(range=[1960, 2020])
 
-st.plotly_chart(fig4)
+st.plotly_chart(fig1)
