@@ -27,35 +27,16 @@ fig.update_yaxes(range=[100,13000])
 st.plotly_chart(fig)
 
 
-# histogram of price distribution of Manufacturer between manufacturers
-st.subheader('Histogram of price distribution between manufacturers')
-# Multiselect widget for selecting manufacturers
-selected_condition = st.multiselect('Select Condition', df['Condition'].unique())
-
-# Filter the DataFrame based on selected manufacturers
-filtered_df = df[df['Condition'].isin(selected_condition)]
-# create a normalized histogram checkbox
-normalized = st.checkbox('Normalized', key='normalized_checkbox')
-
-# create a histogram with manufacturer1 and manufacturer2 input
-fig = px.histogram(df, x='Condition', y='Price', color='Manufacturer', 
-                   hover_data=df.columns)
-
-
-
-# Check if normalization checkbox is checked
-if normalized:
-    fig.update_layout(barmode='overlay')
-    fig.update_traces(opacity=0.75)
-
-# x-axis title
-fig.update_xaxes(title_text='Manufacturer')
-# y-axis title
-fig.update_yaxes(title_text='Price')
-# Set the y-axis limit
-fig.update_yaxes(range=[100000, 160000000])
-
-# plot the histogram
+list_of_param=['Transmission','Cylinders','Type', 'condition']
+# creatins selectbox to choose the parameter for histogram
+choice_of_param = st.selectbox('Split for price distribution', list_of_param)
+# creating histogram 
+fig = px.histogram(df, x="Price", color=choice_of_param)
+# setting title and axis labels
+fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
+# setting the range of the x-axis to be between 0 and 50000 to make visualization more clear
+fig.update_xaxes(range=[1000, 50_000])
+# displaing the histogram
 st.plotly_chart(fig)
 
 
