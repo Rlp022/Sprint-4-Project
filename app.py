@@ -30,16 +30,15 @@ st.plotly_chart(fig)
 # histogram of price distribution of Manufacturer between manufacturers
 st.subheader('Histogram of price distribution between manufacturers')
 # Multiselect widget for selecting manufacturers
-selected_manufacturers = st.multiselect('Select Manufacturers', df['Manufacturer'].unique())
+selected_condition = st.multiselect('Select Condition', df['Condition'].unique())
 
 # Filter the DataFrame based on selected manufacturers
-filtered_df = df[df['Manufacturer'].isin(selected_manufacturers)]
+filtered_df = df[df['Condition'].isin(selected_condition)]
 # create a normalized histogram checkbox
 normalized = st.checkbox('Normalized', key='normalized_checkbox')
 
 # create a histogram with manufacturer1 and manufacturer2 input
-fig = px.histogram(df, x='Manufacturer', y='Price', color='Manufacturer', 
-                   marginal='rug',  # adds marginal rug plots
+fig = px.histogram(df, x='Manufacturer', y='Price', color='Condition', 
                    hover_data=df.columns)
 
 
