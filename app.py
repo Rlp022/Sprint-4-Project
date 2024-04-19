@@ -27,15 +27,16 @@ fig.update_yaxes(range=[100,13000])
 st.plotly_chart(fig)
 
 
-list_of_param=['Transmission','Cylinders','Type', 'condition']
+list_of_param=['Transmission','Cylinders','Type', 'Condition']
 # creatins selectbox to choose the parameter for histogram
 choice_of_param = st.selectbox('Split for price distribution', list_of_param)
 # creating histogram 
 fig = px.histogram(df, x="Price", color=choice_of_param)
 # setting title and axis labels
 fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
-# setting the range of the x-axis to be between 0 and 50000 to make visualization more clear
-fig.update_xaxes(range=[1000, 50_000])
+# setting the range of the x-axis to be between 1000 and 50000 to make visualization more clear
+fig.update_xaxes(range=[1000, 50000])
+fig.update_yaxes(range=[1000, 25000])
 # displaing the histogram
 st.plotly_chart(fig)
 
