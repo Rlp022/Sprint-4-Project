@@ -37,7 +37,7 @@ fig = px.histogram(df, x="Price", color=choice_of_param)
 # setting title and axis labels
 fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
 # setting the range of the x-axis to be between 1000 and 50000 to make visualization more clear
-fig.update_xaxes(range=[1000, 50000])
+fig.update_xaxes(range=[1000, 30000])
 fig.update_yaxes(range=[1000, 2500])
 # displaing the histogram
 st.plotly_chart(fig)
