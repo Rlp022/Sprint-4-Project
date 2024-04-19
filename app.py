@@ -38,7 +38,7 @@ filtered_df = df[df['Condition'].isin(selected_condition)]
 normalized = st.checkbox('Normalized', key='normalized_checkbox')
 
 # create a histogram with manufacturer1 and manufacturer2 input
-fig = px.histogram(df, x='Manufacturer', y='Price', 
+fig = px.histogram(df, x='Condition', y='Price', color='Manufacturer', 
                    hover_data=df.columns)
 
 
