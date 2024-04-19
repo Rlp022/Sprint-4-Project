@@ -29,11 +29,11 @@ st.plotly_chart(fig)
 
 # histogram of price distribution of Manufacturer between manufacturers
 st.subheader('Histogram of price distribution between manufacturers')
-# drop down menu for selecting the manufacturer 1 and 2 
-# index 1 and 2 are used to set default values for the drop down menu
-manufacturer1 = st.selectbox('Manufacturer 1', df['Manufacturer'].unique(), index=1)
-manufacturer2 = st.selectbox('Manufacturer 2', df['Manufacturer'].unique(), index=2)
+# Multiselect widget for selecting manufacturers
+selected_manufacturers = st.multiselect('Select Manufacturers', df['Manufacturer'].unique())
 
+# Filter the DataFrame based on selected manufacturers
+filtered_df = df[df['Manufacturer'].isin(selected_manufacturers)]
 # create a normalized histogram checkbox
 normalized = st.checkbox('Normalized', key='normalized_checkbox')
 
