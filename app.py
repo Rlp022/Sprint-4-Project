@@ -26,7 +26,9 @@ fig.update_yaxes(range=[100,13000])
 # plot the histogram
 st.plotly_chart(fig)
 
-
+# histogram of price depending on transmission, cylinders, type, condition
+st.title('Histogram of Price Depending on Transmission, Cylinders, Type, and Condition')
+# creating list of parameters
 list_of_param=['Transmission','Cylinders','Type', 'Condition']
 # creatins selectbox to choose the parameter for histogram
 choice_of_param = st.selectbox('Split for price distribution', list_of_param)
