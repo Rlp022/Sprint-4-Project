@@ -11,36 +11,6 @@ df = pd.read_csv('./vehicles_us_cleaned.csv')
 # Title of the app centered
 st.title('US Vehicle Advertisement Listings')
 
-st.write("""
-##### Filter the data below:
-""")
-
-# if checkbox marked, only listings that are 10 days old or less will be shown
-new_listings = st.checkbox('Include only young listings (only 10 days old or less)')
-if new_listings is True:
-     df = df[df['Days listed'] <= 10]
-
-# creating filtered data by model and year
-# creating a list of unique car models
-model_condition = df['Condition'].unique()
-
-# creating slider
-made_choice = st.selectbox('Select model:', model_condition)
-
-
-# year range for slider
-min_year = 1960
-max_year = int(df['Model year'].max())
-year_range = st.slider(
-     "Choose year",
-     value = (min_year,max_year), min_value=min_year, max_value=max_year )
-
-# creating list of years
-actual_range=list(range(year_range[0], year_range[1]+1))
-
-# filtering data with picked parameters and showing 5 first rows of filtered table 
-filtered_df = df[(df.Condition == made_choice) & (df['Model year'].isin(list(actual_range)))]
-st.table(filtered_df.head(5))
 
 
 
@@ -84,3 +54,37 @@ fig1.update_yaxes(range=[10000, 400000])
 fig1.update_xaxes(range=[1960, 2020])
 
 st.plotly_chart(fig1)
+
+
+
+
+st.write("""
+##### Filter the data below:
+""")
+
+# if checkbox marked, only listings that are 10 days old or less will be shown
+new_listings = st.checkbox('Include only young listings (only 10 days old or less)')
+if new_listings is True:
+     df = df[df['Days listed'] <= 10]
+
+# creating filtered data by model and year
+# creating a list of unique car models
+model_condition = df['Condition'].unique()
+
+# creating slider
+made_choice = st.selectbox('Select model:', model_condition)
+
+
+# year range for slider
+min_year = 1960
+max_year = int(df['Model year'].max())
+year_range = st.slider(
+     "Choose year",
+     value = (min_year,max_year), min_value=min_year, max_value=max_year )
+
+# creating list of years
+actual_range=list(range(year_range[0], year_range[1]+1))
+
+# filtering data with picked parameters and showing 5 first rows of filtered table 
+filtered_df = df[(df.Condition == made_choice) & (df['Model year'].isin(list(actual_range)))]
+st.table(filtered_df.head(5))
