@@ -44,10 +44,19 @@ st.plotly_chart(fig)
 
 
 
-#Scatter Plot
+# Scatter Plot
 st.subheader('Scatter Plot')
 fig1 = px.scatter(df, x='Model year', y='Price')
-st.subheader("Scatter Plot: Price vs. Model Year")
+
+# Define a checkbox to toggle the trendline
+show_trendline = st.checkbox("Show Trendline")
+
+if show_trendline:
+    # Add a trendline to the scatter plot
+    fig1.update_traces(mode='markers+lines')
+    st.subheader("Scatter Plot with Trendline: Price vs. Model Year")
+else:
+    st.subheader("Scatter Plot: Price vs. Model Year")
 
 fig1.update_yaxes(range=[10000, 400000])
 fig1.update_xaxes(range=[1960, 2020])
