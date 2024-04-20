@@ -88,3 +88,25 @@ actual_range=list(range(year_range[0], year_range[1]+1))
 # filtering data with picked parameters and showing 5 first rows of filtered table 
 filtered_df = df[(df.Condition == made_choice) & (df['Model year'].isin(list(actual_range)))]
 st.table(filtered_df.head(5))
+
+
+st.header('Compare price distribution between manufacturers')
+manufac_list = sorted(df['Manufacturer'].unique())
+manufacturer_1 = st.selectbox('Select manufacturer 1',
+                              manufac_list, index=manufac_list.index('chevrolet'))
+
+manufacturer_2 = st.selectbox('Select manufacturer 2',
+                              manufac_list, index=manufac_list.index('hyundai'))
+mask_filter = (df['Manufacturer'] == manufacturer_1) | (df['Manufacturer'] == manufacturer_2)
+df_filtered = df[mask_filter]
+normalize = st.checkbox('Normalize histogram', value=True)
+if normalize:
+    histnorm = 'percent'
+else:
+    histnorm = None
+st.write(px.histogram(df_filtered,
+                      x='Price',
+                      nbins=30,
+                      color='Manufacturer',
+                      histnorm=histnorm,
+                      barmode='overlay'))
