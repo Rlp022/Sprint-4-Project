@@ -125,7 +125,7 @@ fig2 = px.histogram(df_filtered,
                       histnorm=histnorm,
                       barmode='overlay')
 fig2.update_yaxes(title='Number of Vehicles')
-fig2.update_yaxes(range=[5, 80])
+fig2.update_yaxes(range=[5, 50000])
 fig2.update_xaxes(range=[60, 43000])
 # display the figure with streamlit
 st.write(fig2)
