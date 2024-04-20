@@ -14,17 +14,27 @@ st.title('US Vehicle Advertisement Listings')
 # Show data in the app
 st.write(df)
 
-# histogram of the types of vehicles by manufacturer
+# Histogram of the types of vehicles by manufacturer
 st.subheader('Histogram of the types of vehicles by manufacturer')
 vehicle_sales = df.groupby(['Manufacturer', 'Type']).size().reset_index(name='Vehicles Sold')
 
+# Create a checkbox for normalization
+normalize_histogram = st.checkbox("Normalize Histogram")
+
 # Plot histogram with Manufacturer on the x-axis, Vehicles Sold on the y-axis, and Type as color
 fig = px.histogram(vehicle_sales, x='Manufacturer', y='Vehicles Sold', color='Type',
-                   title='Number of Vehicles Sold by Manufacturer and Type')
-# Set the y-axis limit to
-fig.update_yaxes(range=[100,13000])
-# plot the histogram
+                   title='Number of Vehicles Sold by Manufacturer and Type',
+                   histfunc='sum' if normalize_histogram else None)  # Sum function for normalization
+
+# Set the y-axis limit
+fig.update_yaxes(range=[100, 13000])
+
+# Plot the histogram
 st.plotly_chart(fig)
+
+
+
+
 
 # histogram of price depending on transmission, cylinders, type, condition
 st.title('Histogram of Price Depending on Transmission, Cylinders, Type, and Condition')
@@ -44,19 +54,10 @@ st.plotly_chart(fig)
 
 
 
-# Scatter Plot
+#Scatter Plot
 st.subheader('Scatter Plot')
 fig1 = px.scatter(df, x='Model year', y='Price')
-
-# Define a checkbox to toggle the trendline
-show_trendline = st.checkbox("Show Trendline")
-
-if show_trendline:
-    # Add a trendline to the scatter plot
-    fig1.update_traces(mode='markers+lines')
-    st.subheader("Scatter Plot with Trendline: Price vs. Model Year")
-else:
-    st.subheader("Scatter Plot: Price vs. Model Year")
+st.subheader("Scatter Plot: Price vs. Model Year")
 
 fig1.update_yaxes(range=[10000, 400000])
 fig1.update_xaxes(range=[1960, 2020])
