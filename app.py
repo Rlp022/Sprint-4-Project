@@ -11,6 +11,9 @@ df = pd.read_csv('./vehicles_us_cleaned.csv')
 # Title of the app centered
 st.title('US Vehicle Advertisement Listings')
 
+st.write("""
+##### Filter the data below:
+""")
 
 # if checkbox marked, only listings that are 10 days old or less will be shown
 new_listings = st.checkbox('Include only young listings (only 10 days old or less)')
