@@ -91,39 +91,39 @@ st.table(filtered_df.head(5))
 
 
 
-# histogram of price depending on transmission, cylinders, type, condition
-st.title('Histogram of Price Depending on Transmission, Cylinders, Type, and Condition')
+st.header('Compare price distribution between manufacturers')
+# get a list of car manufacturers
+manufac_list = sorted(df['Manufacturer'].unique())
+# get user's inputs from a dropdown menu
+manufacturer_1 = st.selectbox(
+                              label='Select manufacturer 1', # title of the select box
+                              options=manufac_list, # options listed in the select box
+                              index=manufac_list.index('chevrolet') # default pre-selected option
+                              )
+# repeat for the second dropdown menu
+manufacturer_2 = st.selectbox(
+                              label='Select Manufacturer 2',
+                              options=manufac_list, 
+                              index=manufac_list.index('hyundai')
+                              )
+# filter the dataframe 
+mask_filter = (df['Manufacturer'] == manufacturer_1) | (df['Manufacturer'] == manufacturer_2)
+df_filtered = df[mask_filter]
 
-# Create a checkbox for normalization
-normalized_checkbox = st.checkbox('Normalize')
-
-# Creating list of parameters
-list_of_param = ['Transmission', 'Cylinders', 'Type', 'Condition']
-
-# Creating selectbox to choose the parameter for histogram
-choice_of_param = st.selectbox('Split for price distribution', list_of_param)
-
-# Check if list_of_param is not empty before using it
-if list_of_param:
-    # Creating selectbox to choose the parameter for histogram
-    choice_of_param = st.selectbox('Split for price distribution', list_of_param)
-
-    # Creating histogram 
-    fig = px.histogram(df, x="Price", color=choice_of_param)
-
-    # Adjust histogram based on checkbox state
-    if normalized_checkbox:
-        fig.update_layout(barmode='overlay')
-        fig.update_traces(opacity=0.75)
-
-    # Setting title and axis labels
-    fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
-
-    # Setting the range of the x-axis to be between 1000 and 50000 to make visualization more clear
-    fig.update_xaxes(range=[1000, 30000])
-    fig.update_yaxes(range=[1000, 2500])
-
-    # Displaying the histogram
-    st.plotly_chart(fig)
+# add a checkbox if a user wants to normalize the histogram
+normalize = st.checkbox('Normalize histogram', value=True)
+if normalize:
+    histnorm = 'percent'
 else:
-    st.warning("No parameters available for histogram selection.")
+    histnorm = None
+
+# create a plotly histogram figure
+fig2 = px.histogram(df_filtered,
+                      x='Price',
+                      nbins=30,
+                      color='Manufacturer',
+                      histnorm=histnorm,
+                      barmode='overlay')
+fig2.update_yaxes(title='Number of Vehicles')
+# display the figure with streamlit
+st.write(fig2)
