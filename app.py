@@ -14,27 +14,47 @@ st.title('US Vehicle Advertisement Listings')
 # Show data in the app
 st.write(df)
 
-# Histogram of the types of vehicles by manufacturer
+# if checkbox marked, only listings that are 10 days old or less will be shown
+new_listings = st.checkbox('Include only young listings (only 10 days old or less)')
+if new_listings is True:
+     df = df[df.days_listed <= 10]
+
+# creating filtered data by model and year
+# creating a list of unique car models
+model_condition = df['Condition'].unique()
+
+# creating slider
+made_choice = st.selectbox('Select model:', model_condition)
+
+
+# year range for slider
+min_year = 1960
+max_year = int(df['Model year'].max())
+year_range = st.slider(
+     "Choose year",
+     value = (min_year,max_year), min_value=min_year, max_value=max_year )
+
+# creating list of years
+actual_range=list(range(year_range[0], year_range[1]+1))
+
+# filtering data with picked parameters and showing 5 first rows of filtered table 
+filtered_df = df[(df.Condition == made_choice) & (df['Model year'].isin(list(actual_range)))]
+st.table(filtered_df.head(5))
+
+
+
+
+# histogram of the types of vehicles by manufacturer
 st.subheader('Histogram of the types of vehicles by manufacturer')
 vehicle_sales = df.groupby(['Manufacturer', 'Type']).size().reset_index(name='Vehicles Sold')
 
-# Create a checkbox for normalization
-normalize_histogram = st.checkbox("Normalize Histogram")
-
 # Plot histogram with Manufacturer on the x-axis, Vehicles Sold on the y-axis, and Type as color
 fig = px.histogram(vehicle_sales, x='Manufacturer', y='Vehicles Sold', color='Type',
-                   title='Number of Vehicles Sold by Manufacturer and Type',
-                   histfunc='sum' if normalize_histogram else None)  # Sum function for normalization
-
-# Set the y-axis limit
-fig.update_yaxes(range=[100, 13000])
-
-# Plot the histogram
+                   title='Number of Vehicles Sold by Manufacturer and Type')
+# Set the y-axis limit to
+fig.update_yaxes(range=[100,13000])
+# plot the histogram
 st.plotly_chart(fig)
-
-
-
-
 
 # histogram of price depending on transmission, cylinders, type, condition
 st.title('Histogram of Price Depending on Transmission, Cylinders, Type, and Condition')
