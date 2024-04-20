@@ -90,23 +90,33 @@ filtered_df = df[(df.Condition == made_choice) & (df['Model year'].isin(list(act
 st.table(filtered_df.head(5))
 
 
-st.header('Compare price distribution between manufacturers')
-manufac_list = sorted(df['Manufacturer'].unique())
-manufacturer_1 = st.selectbox('Select manufacturer 1',
-                              manufac_list, index=manufac_list.index('chevrolet'))
 
-manufacturer_2 = st.selectbox('Select manufacturer 2',
-                              manufac_list, index=manufac_list.index('hyundai'))
-mask_filter = (df['Manufacturer'] == manufacturer_1) | (df['Manufacturer'] == manufacturer_2)
-df_filtered = df[mask_filter]
-normalize = st.checkbox('Normalize histogram', value=True)
-if normalize:
-    histnorm = 'percent'
-else:
-    histnorm = None
-st.write(px.histogram(df_filtered,
-                      x='Price',
-                      nbins=30,
-                      color='Manufacturer',
-                      histnorm=histnorm,
-                      barmode='overlay'))
+# histogram of price depending on transmission, cylinders, type, condition
+st.title('Histogram of Price Depending on Transmission, Cylinders, Type, and Condition')
+
+# Create a checkbox for normalization
+normalized_checkbox = st.checkbox('Normalize')
+
+# Creating list of parameters
+list_of_param = ['Transmission', 'Cylinders', 'Type', 'Condition']
+
+# Creating selectbox to choose the parameter for histogram
+choice_of_param = st.selectbox('Split for price distribution', list_of_param)
+
+# Creating histogram 
+fig = px.histogram(df, x="Price", color=choice_of_param)
+
+# Adjust histogram based on checkbox state
+if normalized_checkbox:
+    fig.update_layout(barmode='overlay')
+    fig.update_traces(opacity=0.75)
+
+# Setting title and axis labels
+fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
+
+# Setting the range of the x-axis to be between 1000 and 50000 to make visualization more clear
+fig.update_xaxes(range=[1000, 30000])
+fig.update_yaxes(range=[1000, 2500])
+
+# Displaying the histogram
+st.plotly_chart(fig)
