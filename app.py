@@ -103,20 +103,27 @@ list_of_param = ['Transmission', 'Cylinders', 'Type', 'Condition']
 # Creating selectbox to choose the parameter for histogram
 choice_of_param = st.selectbox('Split for price distribution', list_of_param)
 
-# Creating histogram 
-fig = px.histogram(df, x="Price", color=choice_of_param)
+# Check if list_of_param is not empty before using it
+if list_of_param:
+    # Creating selectbox to choose the parameter for histogram
+    choice_of_param = st.selectbox('Split for price distribution', list_of_param)
 
-# Adjust histogram based on checkbox state
-if normalized_checkbox:
-    fig.update_layout(barmode='overlay')
-    fig.update_traces(opacity=0.75)
+    # Creating histogram 
+    fig = px.histogram(df, x="Price", color=choice_of_param)
 
-# Setting title and axis labels
-fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
+    # Adjust histogram based on checkbox state
+    if normalized_checkbox:
+        fig.update_layout(barmode='overlay')
+        fig.update_traces(opacity=0.75)
 
-# Setting the range of the x-axis to be between 1000 and 50000 to make visualization more clear
-fig.update_xaxes(range=[1000, 30000])
-fig.update_yaxes(range=[1000, 2500])
+    # Setting title and axis labels
+    fig.update_layout(title="<b> Split of price by {}</b>".format(choice_of_param), xaxis_title='Price', yaxis_title='Number of listings')
 
-# Displaying the histogram
-st.plotly_chart(fig)
+    # Setting the range of the x-axis to be between 1000 and 50000 to make visualization more clear
+    fig.update_xaxes(range=[1000, 30000])
+    fig.update_yaxes(range=[1000, 2500])
+
+    # Displaying the histogram
+    st.plotly_chart(fig)
+else:
+    st.warning("No parameters available for histogram selection.")
