@@ -17,7 +17,7 @@ st.write(df)
 # if checkbox marked, only listings that are 10 days old or less will be shown
 new_listings = st.checkbox('Include only young listings (only 10 days old or less)')
 if new_listings is True:
-     df = df[df.days_listed <= 10]
+     df = df[df['Days listed'] <= 10]
 
 # creating filtered data by model and year
 # creating a list of unique car models
